@@ -1,6 +1,6 @@
 {
-    "name": "lightkeeper",
-    "version": "0.0.0",
+    "name": "@codewithkyle/lightkeeper",
+    "version": "0.1.0",
     "description": "Automated lighthouse testing, reporting, and budgeting",
     "author": "Kyle Andrews <codingwithkyle@gmail.com>",
     "license": "GPL-3.0",
@@ -9,12 +9,16 @@
         "lightkeeper": "./cli.js"
     },
     "engines": {
-        "node": ">=10.16.0"
+        "node": ">=12.0.0"
     },
     "scripts": {
-        "test": "node ./cli.js"
+        "test": "node ./cli.js -u https://example.com/"
     },
     "dependencies": {
-        "lighthouse": "^6.1.0"
+        "chrome-launcher": "^0.13.3",
+        "lighthouse": "^6.1.0",
+        "prompts": "^2.3.2",
+        "semver": "^7.3.2",
+        "yargs": "^15.3.1"
     }
 }
