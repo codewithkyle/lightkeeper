@@ -1,0 +1,20 @@
+{
+    "name": "lightkeeper",
+    "version": "0.0.0",
+    "description": "Automated lighthouse testing, reporting, and budgeting",
+    "author": "Kyle Andrews <codingwithkyle@gmail.com>",
+    "license": "GPL-3.0",
+    "main": "cli.js",
+    "bin": {
+        "lightkeeper": "./cli.js"
+    },
+    "engines": {
+        "node": ">=10.16.0"
+    },
+    "scripts": {
+        "test": "node ./cli.js"
+    },
+    "dependencies": {
+        "lighthouse": "^6.1.0"
+    }
+}
