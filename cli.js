@@ -57,13 +57,13 @@ class Lightkeeper {
         };
 
         report.perf = {
-            fcp: lighthouseReport.audits["first-contentful-paint"].score * 100,
-            lcp: lighthouseReport.audits["largest-contentful-paint"].score * 100,
-            fmp: lighthouseReport.audits["first-meaningful-paint"].score * 100,
-            cls: lighthouseReport.audits["cumulative-layout-shift"].score * 100,
-            speedIndex: lighthouseReport.audits["speed-index"].score * 100,
-            tbt: lighthouseReport.audits["total-blocking-time"].score * 100,
-            fip: lighthouseReport.audits["max-potential-fid"].score * 100,
+            fcp: `${lighthouseReport.audits["first-contentful-paint"].score * 100} (${lighthouseReport.audits["first-contentful-paint"].displayValue.replace(/\s/, "")})`,
+            lcp: `${lighthouseReport.audits["largest-contentful-paint"].score * 100} (${lighthouseReport.audits["largest-contentful-paint"].displayValue.replace(/\s/, "")})`,
+            fmp: `${lighthouseReport.audits["first-meaningful-paint"].score * 100} (${lighthouseReport.audits["first-meaningful-paint"].displayValue.replace(/\s/, "")})`,
+            cls: `${lighthouseReport.audits["cumulative-layout-shift"].score * 100} (${lighthouseReport.audits["cumulative-layout-shift"].displayValue.replace(/\s/, "")})`,
+            speedIndex: `${lighthouseReport.audits["speed-index"].score * 100} (${lighthouseReport.audits["speed-index"].displayValue.replace(/\s/, "")})`,
+            tbt: `${lighthouseReport.audits["total-blocking-time"].score * 100} (${lighthouseReport.audits["total-blocking-time"].displayValue.replace(/\s/, "")})`,
+            fip: `${lighthouseReport.audits["max-potential-fid"].score * 100} (${lighthouseReport.audits["max-potential-fid"].displayValue.replace(/\s/, "")})`,
         };
 
         report.accessibility = {
@@ -78,8 +78,8 @@ class Lightkeeper {
         report.quality = {
             weight: `${lighthouseReport.audits["total-byte-weight"].numericValue} bytes`,
             lazyImages: lighthouseReport.audits["offscreen-images"].score ? "Passed" : "Failed",
-            minifiedCSS: lighthouseReport.audits["unminified-css"].score ? "Failed" : "Passed",
-            minifiedJS: lighthouseReport.audits["unminified-javascript"].score ? "Failed" : "Passed",
+            // minifiedCSS: lighthouseReport.audits["unminified-css"].score ? "Failed" : "Passed",
+            // minifiedJS: lighthouseReport.audits["unminified-javascript"].score ? "Failed" : "Passed",
             optimizedImages: lighthouseReport.audits["uses-optimized-images"].score ? "Passed" : "Failed",
             responsiveImages: lighthouseReport.audits["uses-responsive-images"].score ? "Passed" : "Failed",
             domSize: lighthouseReport.audits["dom-size"].score ? "Passed" : "Failed",
@@ -94,6 +94,8 @@ class Lightkeeper {
             canonical: lighthouseReport.audits["canonical"].score ? "Passed" : "Failed",
             robots: lighthouseReport.audits["robots-txt"].score ? "Passed" : "Failed",
         };
+
+        report.lighthouseReport = lighthouseReport;
 
         return report;
     }
@@ -118,13 +120,13 @@ class Lightkeeper {
         message += `SEO: ${chalk.blue(report.scores.seo)}${chalk.blue("/100")}\n\n`;
 
         message += `${chalk.magenta("Performance Audit")}\n`;
-        message += `FCP: ${chalk.yellow(report.perf.fcp)}\n`;
         message += `LCP: ${chalk.yellow(report.perf.lcp)}\n`;
-        message += `FMP: ${chalk.yellow(report.perf.fmp)}\n`;
         message += `CLS: ${chalk.yellow(report.perf.cls)}\n`;
+        message += `First Input Delay: ${chalk.yellow(report.perf.fip)}\n`;
+        message += `FCP: ${chalk.yellow(report.perf.fcp)}\n`;
+        message += `FMP: ${chalk.yellow(report.perf.fmp)}\n`;
         message += `Speed Index: ${chalk.yellow(report.perf.speedIndex)}\n`;
-        message += `Total Blocking Time: ${chalk.yellow(report.perf.tbt)}\n`;
-        message += `First Input Delay: ${chalk.yellow(report.perf.fip)}\n\n`;
+        message += `Total Blocking Time: ${chalk.yellow(report.perf.tbt)}\n\n`;
 
         message += `${chalk.magenta("Accessibility Audit")}\n`;
         message += `Aria Roles: ${this.checkPassFail(report.accessibility.ariaRoles)}\n`;
@@ -137,8 +139,8 @@ class Lightkeeper {
         message += `${chalk.magenta("Quality Audit")}\n`;
         message += `Weight: ${chalk.yellow(report.quality.weight)}\n`;
         message += `Lazy Images: ${this.checkPassFail(report.quality.lazyImages)}\n`;
-        message += `Minified CSS: ${this.checkPassFail(report.quality.minifiedCSS)}\n`;
-        message += `Minified JS: ${this.checkPassFail(report.quality.minifiedJS)}\n`;
+        // message += `Minified CSS: ${this.checkPassFail(report.quality.minifiedCSS)}\n`;
+        // message += `Minified JS: ${this.checkPassFail(report.quality.minifiedJS)}\n`;
         message += `Optimized Images: ${this.checkPassFail(report.quality.optimizedImages)}\n`;
         message += `Responsive Images: ${this.checkPassFail(report.quality.responsiveImages)}\n`;
         message += `DOM Size: ${this.checkPassFail(report.quality.domSize)}\n`;

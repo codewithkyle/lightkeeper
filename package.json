@@ -1,6 +1,6 @@
 {
     "name": "@codewithkyle/lightkeeper",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "description": "Automated lighthouse testing, reporting, and budgeting",
     "author": "Kyle Andrews <codingwithkyle@gmail.com>",
     "license": "GPL-3.0",
@@ -12,7 +12,7 @@
         "node": ">=12.0.0"
     },
     "scripts": {
-        "test": "node ./cli.js -u https://web.dev/ -o ./audits"
+        "test": "node ./cli.js -u http://boilerplate.local/ -o ./audits"
     },
     "dependencies": {
         "boxen": "^4.2.0",
