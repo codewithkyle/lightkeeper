@@ -12,7 +12,7 @@
         "node": ">=12.0.0"
     },
     "scripts": {
-        "test": "node ./cli.js -u http://boilerplate.local/ -o ./audits"
+        "test": "node ./cli.js -u https://weber.com/ -o ./audits"
     },
     "dependencies": {
         "boxen": "^4.2.0",

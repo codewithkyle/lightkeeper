@@ -57,13 +57,25 @@ class Lightkeeper {
         };
 
         report.perf = {
-            fcp: `${lighthouseReport.audits["first-contentful-paint"].score * 100} (${lighthouseReport.audits["first-contentful-paint"].displayValue.replace(/\s/, "")})`,
-            lcp: `${lighthouseReport.audits["largest-contentful-paint"].score * 100} (${lighthouseReport.audits["largest-contentful-paint"].displayValue.replace(/\s/, "")})`,
-            fmp: `${lighthouseReport.audits["first-meaningful-paint"].score * 100} (${lighthouseReport.audits["first-meaningful-paint"].displayValue.replace(/\s/, "")})`,
-            cls: `${lighthouseReport.audits["cumulative-layout-shift"].score * 100} (${lighthouseReport.audits["cumulative-layout-shift"].displayValue.replace(/\s/, "")})`,
-            speedIndex: `${lighthouseReport.audits["speed-index"].score * 100} (${lighthouseReport.audits["speed-index"].displayValue.replace(/\s/, "")})`,
-            tbt: `${lighthouseReport.audits["total-blocking-time"].score * 100} (${lighthouseReport.audits["total-blocking-time"].displayValue.replace(/\s/, "")})`,
-            fip: `${lighthouseReport.audits["max-potential-fid"].score * 100} (${lighthouseReport.audits["max-potential-fid"].displayValue.replace(/\s/, "")})`,
+            fcp: Math.round(lighthouseReport.audits["first-contentful-paint"].score * 100),
+            fcpTime: lighthouseReport.audits["first-contentful-paint"].displayValue.replace(/\s/, ""),
+
+            lcp: Math.round(lighthouseReport.audits["largest-contentful-paint"].score * 100),
+            lcpTime: lighthouseReport.audits["largest-contentful-paint"].displayValue.replace(/\s/, ""),
+
+            fmp: Math.round(lighthouseReport.audits["first-meaningful-paint"].score * 100),
+            fmpTime: lighthouseReport.audits["first-meaningful-paint"].displayValue.replace(/\s/, ""),
+
+            cls: Math.round(lighthouseReport.audits["cumulative-layout-shift"].score * 100),
+
+            speedIndex: Math.round(lighthouseReport.audits["speed-index"].score * 100),
+            speedIndexTime: lighthouseReport.audits["speed-index"].displayValue.replace(/\s/, ""),
+
+            tbt: Math.round(lighthouseReport.audits["total-blocking-time"].score * 100),
+            tbtTime: lighthouseReport.audits["total-blocking-time"].displayValue.replace(/\s/, ""),
+
+            fip: Math.round(lighthouseReport.audits["max-potential-fid"].score * 100),
+            fipTime: lighthouseReport.audits["max-potential-fid"].displayValue.replace(/\s/, ""),
         };
 
         report.accessibility = {
@@ -120,13 +132,13 @@ class Lightkeeper {
         message += `SEO: ${chalk.blue(report.scores.seo)}${chalk.blue("/100")}\n\n`;
 
         message += `${chalk.magenta("Performance Audit")}\n`;
-        message += `LCP: ${chalk.yellow(report.perf.lcp)}\n`;
+        message += `LCP: ${chalk.yellow(report.perf.lcp)} ${chalk.yellow("(" + report.perf.lcpTime + ")")}\n`;
         message += `CLS: ${chalk.yellow(report.perf.cls)}\n`;
-        message += `First Input Delay: ${chalk.yellow(report.perf.fip)}\n`;
-        message += `FCP: ${chalk.yellow(report.perf.fcp)}\n`;
-        message += `FMP: ${chalk.yellow(report.perf.fmp)}\n`;
-        message += `Speed Index: ${chalk.yellow(report.perf.speedIndex)}\n`;
-        message += `Total Blocking Time: ${chalk.yellow(report.perf.tbt)}\n\n`;
+        message += `First Input Delay: ${chalk.yellow(report.perf.fip)} ${chalk.yellow("(" + report.perf.fipTime + ")")}\n`;
+        message += `FCP: ${chalk.yellow(report.perf.fcp)} ${chalk.yellow("(" + report.perf.fcpTime + ")")}\n`;
+        message += `FMP: ${chalk.yellow(report.perf.fmp)} ${chalk.yellow("(" + report.perf.fmpTime + ")")}\n`;
+        message += `Speed Index: ${chalk.yellow(report.perf.speedIndex)} ${chalk.yellow("(" + report.perf.speedIndexTime + ")")}\n`;
+        message += `Total Blocking Time: ${chalk.yellow(report.perf.tbt)} ${chalk.yellow("(" + report.perf.tbtTime + ")")}\n\n`;
 
         message += `${chalk.magenta("Accessibility Audit")}\n`;
         message += `Aria Roles: ${this.checkPassFail(report.accessibility.ariaRoles)}\n`;
